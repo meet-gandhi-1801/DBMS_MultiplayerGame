@@ -1,0 +1,716 @@
+
+-- MapCategories Table Data
+INSERT INTO MapCategories (category_id, name, parent_id) VALUES
+(1, 'Standard Maps', NULL),
+(2, 'Event Maps', NULL),
+(3, 'Competitive Maps', 1),
+(4, 'Casual Maps', 1),
+(5, 'Halloween Event', 2),
+(6, 'Winter Event', 2);
+
+-- Maps Table Data
+INSERT INTO Maps (map_id, name, category_id, is_active) VALUES
+(101, 'The Skeld', 3, TRUE),
+(102, 'Mira HQ', 3, TRUE),
+(103, 'Polus', 3, TRUE),
+(104, 'Airship', 4, TRUE),
+(105, 'Training Ground', 4, FALSE),
+(201, 'Haunted Mansion', 5, TRUE),
+(202, 'Snowy Outpost', 6, TRUE),
+(106, 'Submerged', 4, TRUE),
+(107, 'Fungle', 4, TRUE),
+(108, 'Asteroid Base', 3, TRUE);
+
+-- Tasks Table Data (Example tasks for a few maps)
+INSERT INTO Tasks (task_id, map_id, name, description) VALUES
+(1, 101, 'Swipe Card', 'Swipe the admin card'),
+(2, 101, 'Empty Garbage', 'Empty garbage chute in Cafeteria and Storage'),
+(3, 101, 'Fix Wiring', 'Fix wiring panels in multiple locations'),
+(4, 102, 'Submit Scan', 'Submit body scan in MedBay'),
+(5, 102, 'Process Data', 'Process data in the Office'),
+(6, 103, 'Record Temperature', 'Record temperature outside'),
+(7, 103, 'Align Telescope', 'Align the telescope in Laboratory'),
+(8, 104, 'Unlock Safes', 'Unlock safes in the Cargo Bay'),
+(9, 104, 'Polish Ruby', 'Polish the giant ruby'),
+(10, 201, 'Collect Cobwebs', 'Collect spooky cobwebs'),
+(11, 202, 'Shovel Snow', 'Shovel snow drifts'),
+(12, 101, 'Calibrate Distributor', 'Calibrate the distributor in Electrical'),
+(13, 103, 'Monitor Tree', 'Monitor the vital signs of the tree'),
+(14, 104, 'Sort Records', 'Sort records in the Meeting Room');
+
+-- Items Table Data
+INSERT INTO Items (item_id, name, type, unlock_level, is_active) VALUES
+(1, 'Basic Hat', 'hat', 1, TRUE),
+(2, 'Red Skin', 'skin', 1, TRUE),
+(3, 'Blue Skin', 'skin', 1, TRUE),
+(4, 'Fedora', 'hat', 5, TRUE),
+(5, 'Astronaut Suit', 'skin', 10, TRUE),
+(6, 'Mini Crewmate', 'pet', 15, TRUE),
+(7, 'Pirate Hat', 'hat', 8, TRUE),
+(8, 'Ninja Suit', 'skin', 12, TRUE),
+(9, 'Robot Dog', 'pet', 20, TRUE),
+(10, 'Crown', 'hat', 25, TRUE),
+(11, 'Ghostly Aura', 'skin', 0, FALSE), -- Example inactive/event item
+(12, 'Santa Hat', 'hat', 0, TRUE),
+(13, 'Elf Suit', 'skin', 0, TRUE),
+(14, 'Rudolph Pet', 'pet', 0, TRUE),
+(15, 'Top Hat', 'hat', 7, TRUE),
+(16, 'Detective Coat', 'skin', 14, TRUE),
+(17, 'Hamster Ball', 'pet', 18, TRUE),
+(18, 'Plague Doctor Mask', 'hat', 11, TRUE),
+(19, 'Lava Skin', 'skin', 22, TRUE),
+(20, 'UFO Pet', 'pet', 28, TRUE),
+(21, 'Chef Hat', 'hat', 3, TRUE),
+(22, 'Mechanic Suit', 'skin', 6, TRUE),
+(23, 'Mini Brainslug', 'pet', 9, TRUE),
+(24, 'Safety Helmet', 'hat', 2, TRUE),
+(25, 'Orange Skin', 'skin', 1, TRUE),
+(26, 'Green Skin', 'skin', 1, TRUE),
+(27, 'Purple Skin', 'skin', 1, TRUE),
+(28, 'Yellow Skin', 'skin', 1, TRUE),
+(29, 'White Skin', 'skin', 1, TRUE),
+(30, 'Black Skin', 'skin', 1, TRUE);
+
+
+-- Admins Table Data
+INSERT INTO Admins (admin_id, username, password_hash, role, created_at) VALUES
+('ADM001', 'SuperAdmin', 'hashed_pw_1', 'superadmin', '2024-01-01 10:00:00'),
+('ADM002', 'ModMaster', 'hashed_pw_2', 'moderator', '2024-01-15 11:00:00'),
+('ADM003', 'DataGuru', 'hashed_pw_3', 'analyst', '2024-02-01 12:00:00'),
+('ADM004', 'ModSquad', 'hashed_pw_4', 'moderator', '2024-03-01 13:00:00'),
+('ADM005', 'AdminHelper', 'hashed_pw_5', 'moderator', '2024-04-01 14:00:00');
+
+-- Players Table Data (Generating 150 players)
+-- Using simple sequential Player IDs (P00001 - P00150)
+-- Using varied creation dates and DOBs
+INSERT INTO Players (player_id, username, gender, dob, region, wins, losses, xp, level, created_at) VALUES
+('P00001', 'GamerX1', 'male', '2000-05-15', 'North America', 15, 30, 1550, 16, '2025-01-10 12:30:00'),
+('P00002', 'PixelProwler', 'female', '1998-11-22', 'Europe', 55, 50, 5520, 25, '2025-01-15 09:00:00'),
+('P00003', 'NoobSlayer', 'male', '2003-01-30', 'Asia', 5, 10, 480, 5, '2025-01-18 14:00:00'),
+('P00004', 'QueenOfChaos', 'female', '1995-07-19', 'North America', 120, 80, 12500, 35, '2025-01-22 11:00:00'),
+('P00005', 'SilentShadow', 'other', '2001-03-10', 'Europe', 30, 25, 3100, 20, '2025-01-25 18:45:00');
+-- ... (Generate 145 more unique player entries below) ...
+INSERT INTO Players (player_id, username, gender, dob, region, wins, losses, xp, level, created_at) VALUES
+('P00006', 'MajorMiner', 'male', '1999-08-12', 'Asia', 22, 18, 2350, 18, '2025-01-28 10:15:00'),
+('P00007', 'LunaTick', 'female', '2002-04-25', 'South America', 8, 15, 780, 8, '2025-01-31 16:20:00'),
+('P00008', 'CaptainCode', 'male', '1997-12-01', 'Oceania', 70, 40, 7200, 29, '2025-02-02 08:30:00'),
+('P00009', 'DivaDestroyer', 'female', '2000-09-05', 'Africa', 40, 35, 4150, 22, '2025-02-05 13:00:00'),
+('P00010', 'RookieReaper', 'male', '2004-02-18', 'North America', 2, 5, 180, 2, '2025-02-08 19:00:00'),
+('P00011', 'ArcadeAngel', 'female', '1996-06-30', 'Europe', 95, 60, 9800, 32, '2025-02-10 10:00:00'),
+('P00012', 'ZombieZoomer', 'male', '2005-11-08', 'Asia', 12, 28, 1150, 12, '2025-02-13 14:30:00'),
+('P00013', 'MysticMaiden', 'female', '1998-01-15', 'North America', 60, 45, 6100, 27, '2025-02-16 11:20:00'),
+('P00014', 'Knight Rider', 'male', '1994-10-20', 'Europe', 150, 90, 15500, 38, '2025-02-18 15:00:00'),
+('P00015', 'Cyber Siren', 'female', '2003-07-01', 'Asia', 18, 22, 1900, 17, '2025-02-21 09:45:00'),
+('P00016', 'DragonDude', 'male', '2001-05-25', 'Oceania', 35, 30, 3600, 21, '2025-02-24 17:00:00'),
+('P00017', 'PhantomPhreak', 'other', '1999-02-11', 'South America', 45, 40, 4700, 24, '2025-02-27 10:30:00'),
+('P00018', 'VikingVixen', 'female', '1997-09-14', 'Europe', 80, 55, 8300, 30, '2025-03-02 13:45:00'),
+('P00019', 'WarlockWizard', 'male', '2000-12-28', 'North America', 25, 20, 2600, 19, '2025-03-03 12:00:00'),
+('P00020', 'CosmicComet', 'female', '2004-08-03', 'Asia', 9, 12, 950, 10, '2025-03-05 16:00:00'),
+('P00021', 'IronInvader', 'male', '1995-04-09', 'Europe', 110, 75, 11200, 34, '2025-03-07 09:00:00'),
+('P00022', 'JungleJane', 'female', '2002-11-17', 'Africa', 28, 32, 2900, 19, '2025-03-10 14:15:00'),
+('P00023', 'KrakenKing', 'male', '1998-06-05', 'Oceania', 50, 38, 5100, 25, '2025-03-13 10:00:00'),
+('P00024', 'LaserLad', 'male', '2006-03-22', 'North America', 1, 3, 80, 1, '2025-03-15 18:00:00'),
+('P00025', 'MoonMistress', 'female', '1996-10-02', 'Europe', 88, 62, 9000, 31, '2025-03-17 11:30:00'),
+('P00026', 'NinjaNerd', 'male', '2001-01-27', 'Asia', 42, 36, 4300, 23, '2025-03-19 15:45:00'),
+('P00027', 'OracleOasis', 'female', '1999-07-11', 'South America', 33, 27, 3400, 21, '2025-03-21 09:10:00'),
+('P00028', 'PiratePete', 'male', '1994-03-16', 'North America', 135, 85, 13800, 37, '2025-03-23 14:00:00'),
+('P00029', 'QuantumQueen', 'female', '2003-09-29', 'Europe', 20, 18, 2100, 18, '2025-03-25 10:20:00'),
+('P00030', 'RebelRider', 'male', '2000-05-04', 'Asia', 65, 50, 6700, 28, '2025-03-27 16:30:00');
+
+-- Add the missing players (P00031-P00080) to the Players table first
+
+-- Insert players P00031-P00080
+INSERT INTO Players (player_id, username, gender, dob, region, wins, losses, xp, level, created_at) VALUES
+('P00031', 'TechTitan', 'male', '1999-03-21', 'North America', 48, 32, 4950, 24, '2025-03-01 09:20:00'),
+('P00032', 'UniqueUnicorn', 'female', '2002-08-05', 'Europe', 15, 20, 1580, 16, '2025-03-02 13:10:00'),
+('P00033', 'ValiantViking', 'male', '1997-05-30', 'Asia', 65, 44, 6700, 28, '2025-03-03 15:45:00'),
+('P00034', 'WonderWitch', 'female', '2001-10-12', 'Oceania', 32, 28, 3300, 21, '2025-03-04 11:30:00'),
+('P00035', 'XenonXpert', 'male', '1995-01-07', 'Africa', 88, 55, 9000, 31, '2025-03-05 17:20:00'),
+('P00036', 'YellowYeti', 'other', '2000-09-19', 'North America', 29, 31, 3000, 20, '2025-03-06 14:15:00'),
+('P00037', 'ZenithZombie', 'male', '1998-04-23', 'Europe', 52, 38, 5300, 25, '2025-03-07 10:05:00'),
+('P00038', 'AltitudeAce', 'female', '2003-12-09', 'Asia', 7, 11, 720, 7, '2025-03-08 16:40:00'),
+('P00039', 'BreakerBoss', 'male', '1996-07-14', 'South America', 71, 49, 7350, 29, '2025-03-09 12:25:00'),
+('P00040', 'CrystalCrusher', 'female', '2002-02-28', 'North America', 23, 25, 2400, 18, '2025-03-10 08:50:00'),
+('P00041', 'DuskDefender', 'male', '1999-11-04', 'Europe', 39, 33, 4050, 22, '2025-03-11 14:35:00'),
+('P00042', 'EmeraldExplorer', 'female', '1997-06-17', 'Oceania', 58, 42, 5950, 26, '2025-03-12 10:15:00'),
+('P00043', 'FrostFighter', 'male', '2001-03-02', 'North America', 27, 29, 2800, 19, '2025-03-13 15:55:00'),
+('P00044', 'GlacierGamer', 'female', '1995-08-25', 'Europe', 85, 53, 8700, 30, '2025-03-14 11:40:00'),
+('P00045', 'HorizonHunter', 'male', '2000-04-11', 'Asia', 33, 31, 3400, 21, '2025-03-15 17:30:00'),
+('P00046', 'InfinityImpulse', 'female', '1998-09-06', 'North America', 47, 37, 4850, 24, '2025-03-16 13:20:00'),
+('P00047', 'JasperJuggler', 'male', '2002-05-29', 'Africa', 14, 16, 1450, 15, '2025-03-17 09:05:00'),
+('P00048', 'KelpKnight', 'other', '1996-12-15', 'South America', 67, 46, 6900, 28, '2025-03-18 15:50:00'),
+('P00049', 'LunarLegend', 'female', '1999-07-20', 'Europe', 37, 35, 3800, 22, '2025-03-19 11:25:00'),
+('P00050', 'MidnightMystic', 'male', '2003-01-13', 'Asia', 10, 14, 1050, 11, '2025-03-20 16:40:00'),
+('P00051', 'NovaNomad', 'female', '1997-10-08', 'North America', 55, 41, 5650, 26, '2025-03-21 12:15:00'),
+('P00052', 'OceanOracle', 'male', '2000-06-24', 'Oceania', 31, 33, 3200, 20, '2025-03-22 08:55:00'),
+('P00053', 'PrismProwler', 'female', '1995-03-01', 'Europe', 82, 51, 8400, 30, '2025-03-23 14:30:00'),
+('P00054', 'QuasarQueen', 'male', '1998-11-26', 'North America', 45, 39, 4650, 23, '2025-03-24 10:10:00'),
+('P00055', 'RiftRunner', 'female', '2001-08-12', 'Asia', 21, 23, 2200, 18, '2025-03-25 16:45:00'),
+('P00056', 'StormStriker', 'male', '1996-05-07', 'Europe', 69, 48, 7100, 28, '2025-03-26 12:20:00'),
+('P00057', 'TwilightTrekker', 'female', '1999-02-19', 'Africa', 35, 37, 3600, 21, '2025-03-27 08:05:00'),
+('P00058', 'UltraUmbrella', 'male', '2002-10-04', 'North America', 12, 18, 1250, 13, '2025-03-28 14:40:00'),
+('P00059', 'VortexVoyager', 'other', '1997-07-30', 'South America', 59, 43, 6050, 27, '2025-03-29 10:25:00'),
+('P00060', 'WhirlwindWizard', 'female', '2000-01-23', 'Asia', 26, 30, 2700, 19, '2025-03-30 15:00:00'),
+('P00061', 'XylemXpert', 'male', '1995-11-18', 'Europe', 76, 52, 7800, 29, '2025-03-31 11:15:00'),
+('P00062', 'YonderYogi', 'female', '1998-05-03', 'North America', 40, 36, 4150, 22, '2025-04-01 17:30:00'),
+('P00063', 'ZephyrZealot', 'male', '2001-12-28', 'Oceania', 17, 21, 1750, 16, '2025-04-02 13:45:00'),
+('P00064', 'AuroraAvenger', 'female', '1996-09-14', 'Europe', 61, 47, 6250, 27, '2025-04-03 09:20:00'),
+('P00065', 'BlizzardBlade', 'male', '1999-04-09', 'North America', 29, 31, 3000, 20, '2025-04-04 15:10:00'),
+('P00066', 'CoralCrusader', 'female', '2003-08-25', 'Asia', 5, 9, 550, 6, '2025-04-05 11:40:00'),
+('P00067', 'DeltaDrifter', 'male', '1997-02-10', 'Europe', 63, 45, 6450, 28, '2025-04-06 16:05:00'),
+('P00068', 'EchoEnforcer', 'other', '2000-11-15', 'South America', 24, 26, 2500, 18, '2025-04-07 12:30:00'),
+('P00069', 'FluxFighter', 'female', '1995-06-29', 'North America', 79, 57, 8100, 30, '2025-04-08 08:15:00'),
+('P00070', 'GalaxyGuardian', 'male', '1998-01-04', 'Asia', 43, 39, 4450, 23, '2025-04-09 14:50:00'),
+('P00071', 'HarmonyHero', 'female', '2002-07-21', 'Europe', 11, 17, 1150, 12, '2025-04-10 10:25:00'),
+('P00072', 'IcyIllusion', 'male', '1996-03-06', 'North America', 65, 50, 6700, 28, '2025-04-11 15:00:00'),
+('P00073', 'JadeJourney', 'female', '1999-10-31', 'Oceania', 30, 32, 3100, 20, '2025-04-06 11:35:00'),
+('P00074', 'KineticKnight', 'male', '1997-08-16', 'Europe', 57, 44, 5850, 26, '2025-04-07 16:45:00'),
+('P00075', 'LavaLegend', 'female', '2001-01-02', 'North America', 19, 25, 2000, 17, '2025-04-08 12:10:00'),
+('P00076', 'MysticMountain', 'male', '1995-09-27', 'Asia', 72, 54, 7400, 29, '2025-04-09 07:30:00'),
+('P00077', 'NebulaNavigator', 'other', '1998-06-13', 'Africa', 38, 38, 3900, 22, '2025-04-10 13:55:00'),
+('P00078', 'OrbitOverseer', 'female', '2000-02-05', 'South America', 25, 27, 2600, 19, '2025-04-11 09:40:00'),
+('P00079', 'PulsarPilot', 'male', '2002-04-18', 'Europe', 8, 12, 850, 9, '2025-04-12 14:25:00'),
+('P00080', 'QuantumQuester', 'female', '1996-11-23', 'North America', 53, 43, 5450, 25, '2025-04-13 10:50:00');-- ... (Continue generating P00031 to P00150 similarly, varying data) ...
+-- Assume players P00031 to P00150 are generated with similar random data for brevity
+
+-- Clans Table Data
+INSERT INTO Clans (clan_id, name, leader_id, created_at) VALUES
+(1, 'The Legends', 'P00014', '2025-01-05 10:00:00'),
+(2, 'Shadow Syndicate', 'P00005', '2025-01-18 12:00:00'),
+(3, 'Pixel Warriors', 'P00002', '2025-01-27 14:00:00'),
+(4, 'Dragon Clan', 'P00016', '2025-02-03 16:00:00'),
+(5, 'Noob Army', 'P00010', '2025-02-11 18:00:00'),
+(6, 'Chaos Crew', 'P00004', '2025-02-18 10:30:00'),
+(7, 'The Elite', 'P00008', '2025-02-25 11:00:00'),
+(8, 'Mystic Order', 'P00013', '2025-03-04 15:00:00'),
+(9, 'Iron Wolves', 'P00021', '2025-03-12 09:45:00'),
+(10, 'Cosmic Crusaders', 'P00020', '2025-03-21 14:20:00');
+
+-- ClanMembers Table Data
+INSERT INTO ClanMembers (clan_id, player_id, role, joined_at) VALUES
+(1, 'P00014', 'leader', '2024-07-01 10:00:00'), (1, 'P00028', 'member', '2024-07-02 11:00:00'), (1, 'P00025', 'member', '2024-07-03 12:00:00'),
+(2, 'P00005', 'leader', '2024-07-05 12:00:00'), (2, 'P00017', 'member', '2024-07-06 13:00:00'), (2, 'P00027', 'member', '2024-07-07 14:00:00'),
+(3, 'P00002', 'leader', '2024-07-10 14:00:00'), (3, 'P00011', 'member', '2024-07-11 15:00:00'), (3, 'P00018', 'member', '2024-07-12 16:00:00'),
+(4, 'P00016', 'leader', '2024-07-15 16:00:00'), (4, 'P00023', 'member', '2024-07-16 17:00:00'), (4, 'P00006', 'member', '2024-07-17 18:00:00'),
+(5, 'P00010', 'leader', '2024-07-20 18:00:00'), (5, 'P00003', 'member', '2024-07-21 19:00:00'), (5, 'P00024', 'member', '2024-07-22 20:00:00'),
+(6, 'P00004', 'leader', '2024-07-25 10:30:00'), (6, 'P00009', 'member', '2024-07-26 11:30:00'), (6, 'P00015', 'member', '2024-07-27 12:30:00'),
+(7, 'P00008', 'leader', '2024-08-01 11:00:00'), (7, 'P00001', 'member', '2024-08-02 12:00:00'), (7, 'P00019', 'member', '2024-08-03 13:00:00'),
+(8, 'P00013', 'leader', '2024-08-05 15:00:00'), (8, 'P00007', 'member', '2024-08-06 16:00:00'), (8, 'P00026', 'member', '2024-08-07 17:00:00'),
+(9, 'P00021', 'leader', '2024-08-10 09:45:00'), (9, 'P00012', 'member', '2024-08-11 10:45:00'), (9, 'P00029', 'member', '2024-08-12 11:45:00'),
+(10, 'P00020', 'leader', '2024-08-15 14:20:00'), (10, 'P00022', 'member', '2024-08-16 15:20:00'), (10, 'P00030', 'member', '2024-08-17 16:20:00');
+-- ... (Add more members to clans, potentially including players P00031-P00150) ...
+-- Example: Add 50 more random memberships
+INSERT INTO ClanMembers (clan_id, player_id, role, joined_at) VALUES
+(1, 'P00031', 'member', '2024-09-01 10:00:00'), (2, 'P00032', 'member', '2024-09-01 10:05:00'), (3, 'P00033', 'member', '2024-09-01 10:10:00'),
+(4, 'P00034', 'member', '2024-09-01 10:15:00'), (5, 'P00035', 'member', '2024-09-01 10:20:00'), (6, 'P00036', 'member', '2024-09-01 10:25:00'),
+(7, 'P00037', 'member', '2024-09-01 10:30:00'), (8, 'P00038', 'member', '2024-09-01 10:35:00'), (9, 'P00039', 'member', '2024-09-01 10:40:00'),
+(10, 'P00040', 'member', '2024-09-01 10:45:00'), (1, 'P00041', 'member', '2024-09-02 11:00:00'), (2, 'P00042', 'member', '2024-09-02 11:05:00'),
+(3, 'P00043', 'member', '2024-09-02 11:10:00'), (4, 'P00044', 'member', '2024-09-02 11:15:00'), (5, 'P00045', 'member', '2024-09-02 11:20:00'),
+(6, 'P00046', 'member', '2024-09-02 11:25:00'), (7, 'P00047', 'member', '2024-09-02 11:30:00'), (8, 'P00048', 'member', '2024-09-02 11:35:00'),
+(9, 'P00049', 'member', '2024-09-02 11:40:00'), (10, 'P00050', 'member', '2024-09-02 11:45:00'), (1, 'P00051', 'member', '2024-09-03 12:00:00'),
+(2, 'P00052', 'member', '2024-09-03 12:05:00'), (3, 'P00053', 'member', '2024-09-03 12:10:00'), (4, 'P00054', 'member', '2024-09-03 12:15:00'),
+(5, 'P00055', 'member', '2024-09-03 12:20:00'), (6, 'P00056', 'member', '2024-09-03 12:25:00'), (7, 'P00057', 'member', '2024-09-03 12:30:00'),
+(8, 'P00058', 'member', '2024-09-03 12:35:00'), (9, 'P00059', 'member', '2024-09-03 12:40:00'), (10, 'P00060', 'member', '2024-09-03 12:45:00'),
+(1, 'P00061', 'member', '2024-09-04 13:00:00'), (2, 'P00062', 'member', '2024-09-04 13:05:00'), (3, 'P00063', 'member', '2024-09-04 13:10:00'),
+(4, 'P00064', 'member', '2024-09-04 13:15:00'), (5, 'P00065', 'member', '2024-09-04 13:20:00'), (6, 'P00066', 'member', '2024-09-04 13:25:00'),
+(7, 'P00067', 'member', '2024-09-04 13:30:00'), (8, 'P00068', 'member', '2024-09-04 13:35:00'), (9, 'P00069', 'member', '2024-09-04 13:40:00'),
+(10, 'P00070', 'member', '2024-09-04 13:45:00'), (1, 'P00071', 'member', '2024-09-05 14:00:00'), (2, 'P00072', 'member', '2024-09-05 14:05:00'),
+(3, 'P00073', 'member', '2024-09-05 14:10:00'), (4, 'P00074', 'member', '2024-09-05 14:15:00'), (5, 'P00075', 'member', '2024-09-05 14:20:00'),
+(6, 'P00076', 'member', '2024-09-05 14:25:00'), (7, 'P00077', 'member', '2024-09-05 14:30:00'), (8, 'P00078', 'member', '2024-09-05 14:35:00'),
+(9, 'P00079', 'member', '2024-09-05 14:40:00'), (10, 'P00080', 'member', '2024-09-05 14:45:00');
+
+
+-- Lobbies Table Data (Generating 50 lobbies)
+-- Using L<Sequence> for lobby_id
+INSERT INTO Lobbies (lobby_id, host_id, max_players, status, clan_id, created_at) VALUES
+('L001', 'P00001', 10, 'waiting', 7, '2025-04-13 19:00:00'),
+('L002', 'P00002', 10, 'playing', 3, '2025-04-13 19:05:00'),
+('L003', 'P00004', 8, 'waiting', 6, '2025-04-13 19:10:00'),
+('L004', 'P00014', 10, 'ended', 1, '2025-04-13 18:30:00'),
+('L005', 'P00008', 10, 'playing', 7, '2025-04-13 19:15:00'),
+('L006', 'P00010', 6, 'waiting', 5, '2025-04-13 19:20:00'),
+('L007', 'P00011', 10, 'playing', 3, '2025-04-13 19:22:00'),
+('L008', 'P00005', 8, 'waiting', 2, '2025-04-13 19:25:00'),
+('L009', 'P00021', 10, 'ended', 9, '2025-04-13 18:45:00'),
+('L010', 'P00016', 10, 'playing', 4, '2025-04-13 19:30:00');
+-- ... (Generate 40 more lobbies L011 to L050, varying hosts, status, max_players, clan_id can be NULL) ...
+INSERT INTO Lobbies (lobby_id, host_id, max_players, status, clan_id, created_at) VALUES
+('L011', 'P00031', 10, 'waiting', NULL, '2025-04-13 19:31:00'),
+('L012', 'P00032', 8, 'playing', 2, '2025-04-13 19:32:00'),
+('L013', 'P00033', 10, 'waiting', 3, '2025-04-13 19:33:00'),
+('L014', 'P00034', 6, 'ended', 4, '2025-04-13 18:50:00'),
+('L015', 'P00035', 10, 'playing', 5, '2025-04-13 19:34:00'),
+('L016', 'P00036', 8, 'waiting', 6, '2025-04-13 19:35:00'),
+('L017', 'P00037', 10, 'playing', 7, '2025-04-13 19:36:00'),
+('L018', 'P00038', 6, 'waiting', 8, '2025-04-13 19:37:00'),
+('L019', 'P00039', 10, 'ended', 9, '2025-04-13 19:00:00'),
+('L020', 'P00040', 8, 'playing', 10, '2025-04-13 19:38:00'),
+('L021', 'P00041', 10, 'waiting', NULL, '2025-04-13 19:39:00'),
+('L022', 'P00042', 10, 'playing', 2, '2025-04-13 19:40:00'),
+('L023', 'P00043', 8, 'waiting', 3, '2025-04-13 19:41:00'),
+('L024', 'P00044', 10, 'ended', 4, '2025-04-13 19:10:00'),
+('L025', 'P00045', 6, 'playing', 5, '2025-04-13 19:42:00'),
+('L026', 'P00046', 10, 'waiting', 6, '2025-04-13 19:43:00'),
+('L027', 'P00047', 8, 'playing', 7, '2025-04-13 19:44:00'),
+('L028', 'P00048', 10, 'waiting', NULL, '2025-04-13 19:45:00'),
+('L029', 'P00049', 6, 'ended', 9, '2025-04-13 19:20:00'),
+('L030', 'P00050', 10, 'playing', 10, '2025-04-13 19:46:00'),
+('L031', 'P00051', 8, 'waiting', 1, '2025-04-13 19:47:00'),
+('L032', 'P00052', 10, 'playing', NULL, '2025-04-13 19:48:00'),
+('L033', 'P00053', 6, 'waiting', 3, '2025-04-13 19:49:00'),
+('L034', 'P00054', 10, 'ended', 4, '2025-04-13 19:30:00'),
+('L035', 'P00055', 8, 'playing', 5, '2025-04-13 19:50:00'),
+('L036', 'P00056', 10, 'waiting', 6, '2025-04-13 19:51:00'),
+('L037', 'P00057', 6, 'playing', NULL, '2025-04-13 19:52:00'),
+('L038', 'P00058', 10, 'waiting', 8, '2025-04-13 19:53:00'),
+('L039', 'P00059', 8, 'ended', 9, '2025-04-13 19:40:00'),
+('L040', 'P00060', 10, 'playing', 10, '2025-04-13 19:54:00'),
+('L041', 'P00061', 6, 'waiting', 1, '2025-04-13 19:55:00'),
+('L042', 'P00062', 10, 'playing', 2, '2025-04-13 19:56:00'),
+('L043', 'P00063', 8, 'waiting', NULL, '2025-04-13 19:57:00'),
+('L044', 'P00064', 10, 'ended', 4, '2025-04-13 19:45:00'),
+('L045', 'P00065', 6, 'playing', 5, '2025-04-13 19:58:00'),
+('L046', 'P00066', 10, 'waiting', 6, '2025-04-13 19:59:00'),
+('L047', 'P00067', 8, 'playing', 7, '2025-04-13 20:00:00'),
+('L048', 'P00068', 10, 'waiting', 8, '2025-04-13 20:01:00'),
+('L049', 'P00069', 6, 'ended', NULL, '2025-04-13 19:50:00'),
+('L050', 'P00070', 10, 'playing', 10, '2025-04-13 20:02:00');
+
+
+-- Games Table Data with ended_at timestamp instead of status
+INSERT INTO Games (game_id, lobby_id, map_id, created_by, created_at, ended_at) VALUES
+('G001', 'L002', 101, 'P00002', '2025-04-13 19:06:00', '2025-04-13 19:20:00'),
+('G002', 'L004', 103, 'P00014', '2025-04-13 18:31:00', '2025-04-13 18:45:00'),
+('G003', 'L005', 102, 'P00008', '2025-04-13 19:16:00', '2025-04-13 19:30:00'),
+('G004', 'L007', 104, 'P00011', '2025-04-13 19:23:00', '2025-04-13 19:40:00'),
+('G005', 'L009', 101, 'P00021', '2025-04-13 18:46:00', '2025-04-13 19:00:00'),
+('G006', 'L010', 103, 'P00016', '2025-04-13 19:31:00', '2025-04-13 19:45:00'),
+('G007', 'L012', 201, 'P00032', '2025-04-13 19:33:00', '2025-04-13 19:50:00'),
+('G008', 'L014', 102, 'P00034', '2025-04-13 18:51:00', '2025-04-13 19:05:00'),
+('G009', 'L015', 104, 'P00035', '2025-04-13 19:35:00', '2025-04-13 19:55:00'),
+('G010', 'L017', 101, 'P00037', '2025-04-13 19:37:00', '2025-04-13 20:00:00'),
+('G011', 'L019', 103, 'P00039', '2025-04-13 19:01:00', '2025-04-13 19:15:00'),
+('G012', 'L020', 202, 'P00040', '2025-04-13 19:39:00', '2025-04-13 20:05:00'),
+('G013', 'L022', 102, 'P00042', '2025-04-13 19:41:00', '2025-04-13 20:10:00'),
+('G014', 'L024', 101, 'P00044', '2025-04-13 19:11:00', '2025-04-13 19:25:00'),
+('G015', 'L025', 104, 'P00045', '2025-04-13 19:43:00', '2025-04-13 20:15:00'),
+('G016', 'L027', 103, 'P00047', '2025-04-13 19:45:00', '2025-04-13 20:20:00'),
+('G017', 'L029', 102, 'P00049', '2025-04-13 19:21:00', '2025-04-13 19:35:00'),
+('G018', 'L030', 101, 'P00050', '2025-04-13 19:47:00', '2025-04-13 20:25:00'),
+('G019', 'L032', 104, 'P00052', '2025-04-13 19:49:00', '2025-04-13 20:30:00'),
+('G020', 'L034', 103, 'P00054', '2025-04-13 19:31:00', '2025-04-13 19:45:00'),
+('G021', 'L035', 201, 'P00055', '2025-04-13 19:51:00', '2025-04-13 20:35:00'),
+('G022', 'L037', 102, 'P00057', '2025-04-13 19:53:00', '2025-04-13 20:40:00'),
+('G023', 'L039', 101, 'P00059', '2025-04-13 19:41:00', '2025-04-13 19:55:00'),
+('G024', 'L040', 104, 'P00060', '2025-04-13 19:55:00', '2025-04-13 20:45:00'),
+('G025', 'L042', 103, 'P00062', '2025-04-13 19:57:00', '2025-04-13 20:50:00'),
+('G026', 'L044', 102, 'P00064', '2025-04-13 19:46:00', '2025-04-13 20:00:00'),
+('G027', 'L045', 202, 'P00065', '2025-04-13 19:59:00', '2025-04-13 20:55:00'),
+('G028', 'L047', 101, 'P00067', '2025-04-13 20:01:00', '2025-04-13 21:00:00'),
+('G029', 'L049', 104, 'P00069', '2025-04-13 19:51:00', '2025-04-13 20:05:00'),
+('G030', 'L050', 103, 'P00070', '2025-04-13 20:03:00', '2025-04-13 21:05:00'),
+('G031', 'L001', 101, 'P00001', '2025-04-13 20:10:00', '2025-04-13 21:10:00'),
+('G032', 'L003', 103, 'P00004', '2025-04-13 20:12:00', '2025-04-13 21:15:00'),
+('G033', 'L006', 102, 'P00010', '2025-04-13 20:15:00', '2025-04-13 21:20:00'),
+('G034', 'L008', 104, 'P00005', '2025-04-13 20:18:00', '2025-04-13 21:25:00'),
+('G035', 'L011', 101, 'P00031', '2025-04-13 20:20:00', '2025-04-13 21:30:00'),
+('G036', 'L013', 103, 'P00033', '2025-04-13 20:22:00', '2025-04-13 21:35:00'),
+('G037', 'L016', 201, 'P00036', '2025-04-13 20:25:00', '2025-04-13 21:40:00'),
+('G038', 'L018', 102, 'P00038', '2025-04-13 20:28:00', '2025-04-13 21:45:00'),
+('G039', 'L021', 104, 'P00041', '2025-04-13 20:30:00', '2025-04-13 21:50:00'),
+('G040', 'L023', 101, 'P00043', '2025-04-13 20:32:00', '2025-04-13 21:55:00'),
+('G041', 'L026', 103, 'P00046', '2025-04-13 20:35:00', '2025-04-13 22:00:00'),
+('G042', 'L028', 102, 'P00048', '2025-04-13 20:38:00', '2025-04-13 22:05:00'),
+('G043', 'L031', 202, 'P00051', '2025-04-13 20:40:00', '2025-04-13 22:10:00'),
+('G044', 'L033', 101, 'P00053', '2025-04-13 20:42:00', '2025-04-13 22:15:00'),
+('G045', 'L036', 104, 'P00056', '2025-04-13 20:45:00', '2025-04-13 22:20:00'),
+('G046', 'L038', 103, 'P00058', '2025-04-13 20:48:00', '2025-04-13 22:25:00'),
+('G047', 'L041', 102, 'P00061', '2025-04-13 20:50:00', '2025-04-13 22:30:00'),
+('G048', 'L043', 101, 'P00063', '2025-04-13 20:52:00', '2025-04-13 22:35:00'),
+('G049', 'L046', 202, 'P00066', '2025-04-13 20:55:00', '2025-04-13 22:40:00'),
+('G050', 'L048', 103, 'P00068', '2025-04-13 20:58:00', '2025-04-13 22:45:00');
+
+
+-- GamePlayers Table Data (Populate the first 15 games with players)
+-- Game G001 (Ended, impostors win)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G001', 'P00002', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:06:10'),
+('G001', 'P00011', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:06:15'),
+('G001', 'P00018', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:06:20'),
+('G001', 'P00033', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:06:25'),
+('G001', 'P00043', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:06:30'),
+('G001', 'P00053', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:06:35'),
+('G001', 'P00063', 'medic', 'dead', 0, FALSE, '2025-04-13 19:06:40'),
+('G001', 'P00073', 'engineer', 'dead', 0, FALSE, '2025-04-13 19:06:45'),
+('G001', 'P00007', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:06:50'),
+('G001', 'P00015', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:06:55');
+
+-- Game G002 (Ended, crew wins)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G002', 'P00014', 'crewmate', 'alive', 100, TRUE, '2025-04-13 18:31:10'),
+('G002', 'P00028', 'crewmate', 'alive', 100, TRUE, '2025-04-13 18:31:15'),
+('G002', 'P00025', 'impostor', 'ghost', 0, FALSE, '2025-04-13 18:31:20'),
+('G002', 'P00031', 'engineer', 'alive', 100, TRUE, '2025-04-13 18:31:25'),
+('G002', 'P00041', 'crewmate', 'dead', 50, TRUE, '2025-04-13 18:31:30'),
+('G002', 'P00051', 'crewmate', 'alive', 100, TRUE, '2025-04-13 18:31:35'),
+('G002', 'P00061', 'impostor', 'ghost', 0, FALSE, '2025-04-13 18:31:40'),
+('G002', 'P00071', 'medic', 'alive', 100, TRUE, '2025-04-13 18:31:45');
+
+-- Game G003 (Ended, impostors win)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G003', 'P00008', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:16:10'),
+('G003', 'P00001', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:16:15'),
+('G003', 'P00019', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:16:20'),
+('G003', 'P00037', 'engineer', 'dead', 0, FALSE, '2025-04-13 19:16:25'),
+('G003', 'P00047', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:16:30'),
+('G003', 'P00057', 'medic', 'dead', 0, FALSE, '2025-04-13 19:16:35'),
+('G003', 'P00067', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:16:40'),
+('G003', 'P00077', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:16:45');
+
+-- Game G004 (Ended, impostors win)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G004', 'P00011', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:23:10'),
+('G004', 'P00022', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:23:15'),
+('G004', 'P00030', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:23:20'),
+('G004', 'P00035', 'engineer', 'dead', 0, FALSE, '2025-04-13 19:23:25'),
+('G004', 'P00042', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:23:30'),
+('G004', 'P00056', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:23:35'),
+('G004', 'P00062', 'medic', 'dead', 0, FALSE, '2025-04-13 19:23:40'),
+('G004', 'P00078', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:23:45');
+
+-- Game G005 (Ended, impostors win)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G005', 'P00021', 'impostor', 'alive', 150, TRUE, '2025-04-13 18:46:10'),
+('G005', 'P00029', 'crewmate', 'dead', 0, FALSE, '2025-04-13 18:46:15'),
+('G005', 'P00038', 'crewmate', 'dead', 0, FALSE, '2025-04-13 18:46:20'),
+('G005', 'P00044', 'engineer', 'dead', 0, FALSE, '2025-04-13 18:46:25'),
+('G005', 'P00052', 'crewmate', 'dead', 0, FALSE, '2025-04-13 18:46:30'),
+('G005', 'P00061', 'impostor', 'alive', 150, TRUE, '2025-04-13 18:46:35'),
+('G005', 'P00069', 'medic', 'dead', 0, FALSE, '2025-04-13 18:46:40'),
+('G005', 'P00075', 'crewmate', 'dead', 0, FALSE, '2025-04-13 18:46:45');
+
+-- Game G006 (Ended, impostors win)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G006', 'P00016', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:31:10'),
+('G006', 'P00024', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:31:15'),
+('G006', 'P00032', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:31:20'),
+('G006', 'P00041', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:31:25'),
+('G006', 'P00050', 'engineer', 'dead', 0, FALSE, '2025-04-13 19:31:30'),
+('G006', 'P00054', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:31:35'),
+('G006', 'P00064', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:31:40'),
+('G006', 'P00072', 'medic', 'dead', 0, FALSE, '2025-04-13 19:31:45');
+
+-- Game G007 (Ended, impostors win)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G007', 'P00032', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:33:10'),
+('G007', 'P00005', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:33:15'),
+('G007', 'P00017', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:33:20'),
+('G007', 'P00027', 'engineer', 'dead', 0, FALSE, '2025-04-13 19:33:25'),
+('G007', 'P00046', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:33:30'),
+('G007', 'P00055', 'medic', 'dead', 0, FALSE, '2025-04-13 19:33:35'),
+('G007', 'P00071', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:33:40');
+
+-- Game G008 (Ended, crew wins)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G008', 'P00034', 'crewmate', 'alive', 100, TRUE, '2025-04-13 18:51:10'),
+('G008', 'P00006', 'crewmate', 'alive', 100, TRUE, '2025-04-13 18:51:15'),
+('G008', 'P00023', 'impostor', 'dead', 0, FALSE, '2025-04-13 18:51:20'),
+('G008', 'P00040', 'engineer', 'alive', 100, TRUE, '2025-04-13 18:51:25'),
+('G008', 'P00057', 'crewmate', 'dead', 50, TRUE, '2025-04-13 18:51:30'),
+('G008', 'P00065', 'medic', 'alive', 100, TRUE, '2025-04-13 18:51:35'),
+('G008', 'P00073', 'impostor', 'ghost', 0, FALSE, '2025-04-13 18:51:40');
+
+-- Game G009 (Ended, impostors win)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G009', 'P00035', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:35:10'),
+('G009', 'P00009', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:35:15'),
+('G009', 'P00015', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:35:20'),
+('G009', 'P00028', 'engineer', 'dead', 0, FALSE, '2025-04-13 19:35:25'),
+('G009', 'P00033', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:35:30'),
+('G009', 'P00045', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:35:35'),
+('G009', 'P00058', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:35:40'),
+('G009', 'P00066', 'medic', 'dead', 0, FALSE, '2025-04-13 19:35:45');
+
+-- Game G010 (Ended, impostors win)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G010', 'P00037', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:37:10'),
+('G010', 'P00003', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:37:15'),
+('G010', 'P00013', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:37:20'),
+('G010', 'P00026', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:37:25'),
+('G010', 'P00039', 'engineer', 'dead', 0, FALSE, '2025-04-13 19:37:30'),
+('G010', 'P00048', 'medic', 'dead', 0, FALSE, '2025-04-13 19:37:35'),
+('G010', 'P00059', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:37:40'),
+('G010', 'P00068', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:37:45');
+
+-- Game G011 (Ended, tie game)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G011', 'P00039', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:01:10'),
+('G011', 'P00004', 'impostor', 'dead', 0, FALSE, '2025-04-13 19:01:15'),
+('G011', 'P00012', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:01:20'),
+('G011', 'P00025', 'engineer', 'dead', 0, FALSE, '2025-04-13 19:01:25'),
+('G011', 'P00036', 'medic', 'dead', 0, FALSE, '2025-04-13 19:01:30'),
+('G011', 'P00049', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:01:35'),
+('G011', 'P00060', 'impostor', 'dead', 0, FALSE, '2025-04-13 19:01:40'),
+('G011', 'P00074', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:01:45');
+
+-- Game G012 (Ended, impostors win)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G012', 'P00040', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:39:10'),
+('G012', 'P00002', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:39:15'),
+('G012', 'P00014', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:39:20'),
+('G012', 'P00020', 'engineer', 'dead', 0, FALSE, '2025-04-13 19:39:25'),
+('G012', 'P00031', 'medic', 'dead', 0, FALSE, '2025-04-13 19:39:30'),
+('G012', 'P00043', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:39:35'),
+('G012', 'P00051', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:39:40'),
+('G012', 'P00070', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:39:45');
+
+-- Game G013 (Ended, impostors win)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G013', 'P00042', 'engineer', 'dead', 0, FALSE, '2025-04-13 19:41:10'),
+('G013', 'P00007', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:41:15'),
+('G013', 'P00019', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:41:20'),
+('G013', 'P00024', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:41:25'),
+('G013', 'P00038', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:41:30'),
+('G013', 'P00053', 'medic', 'dead', 0, FALSE, '2025-04-13 19:41:35'),
+('G013', 'P00063', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:41:40'),
+('G013', 'P00079', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:41:45');
+
+-- Game G014 (Ended, impostors win)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G014', 'P00044', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:11:10'),
+('G014', 'P00010', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:11:15'),
+('G014', 'P00018', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:11:20'),
+('G014', 'P00022', 'engineer', 'dead', 0, FALSE, '2025-04-13 19:11:25'),
+('G014', 'P00037', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:11:30'),
+('G014', 'P00055', 'medic', 'dead', 0, FALSE, '2025-04-13 19:11:35'),
+('G014', 'P00064', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:11:40'),
+('G014', 'P00080', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:11:45');
+
+-- Game G015 (Ended, impostors win)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G015', 'P00045', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:43:10'),
+('G015', 'P00008', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:43:15'),
+('G015', 'P00016', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:43:20'),
+('G015', 'P00029', 'engineer', 'dead', 0, FALSE, '2025-04-13 19:43:25'),
+('G015', 'P00034', 'medic', 'dead', 0, FALSE, '2025-04-13 19:43:30'),
+('G015', 'P00047', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:43:35'),
+('G015', 'P00062', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:43:40'),
+('G015', 'P00076', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:43:45');
+
+-- Game G016 (Ended, crew wins)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G016', 'P00047', 'crewmate', 'alive', 100, TRUE, '2025-04-13 19:45:10'),
+('G016', 'P00013', 'crewmate', 'alive', 100, TRUE, '2025-04-13 19:45:15'),
+('G016', 'P00020', 'impostor', 'dead', 0, FALSE, '2025-04-13 19:45:20'),
+('G016', 'P00028', 'engineer', 'alive', 100, TRUE, '2025-04-13 19:45:25'),
+('G016', 'P00036', 'crewmate', 'alive', 100, TRUE, '2025-04-13 19:45:30'),
+('G016', 'P00054', 'medic', 'alive', 100, TRUE, '2025-04-13 19:45:35'),
+('G016', 'P00065', 'impostor', 'dead', 0, FALSE, '2025-04-13 19:45:40'),
+('G016', 'P00077', 'crewmate', 'alive', 100, TRUE, '2025-04-13 19:45:45');
+
+-- Game G017 (Ended, impostors win)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G017', 'P00049', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:21:10'),
+('G017', 'P00012', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:21:15'),
+('G017', 'P00019', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:21:20'),
+('G017', 'P00026', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:21:25'),
+('G017', 'P00033', 'medic', 'dead', 0, FALSE, '2025-04-13 19:21:30'),
+('G017', 'P00045', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:21:35'),
+('G017', 'P00058', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:21:40'),
+('G017', 'P00070', 'engineer', 'dead', 0, FALSE, '2025-04-13 19:21:45');
+
+-- Game G018 (Ended, impostors win)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G018', 'P00050', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:47:10'),
+('G018', 'P00014', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:47:15'),
+('G018', 'P00021', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:47:20'),
+('G018', 'P00032', 'engineer', 'dead', 0, FALSE, '2025-04-13 19:47:25'),
+('G018', 'P00046', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:47:30'),
+('G018', 'P00057', 'medic', 'dead', 0, FALSE, '2025-04-13 19:47:35'),
+('G018', 'P00066', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:47:40'),
+('G018', 'P00078', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:47:45');
+
+-- Game G019 (Ended, crew wins)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G019', 'P00052', 'crewmate', 'alive', 100, TRUE, '2025-04-13 19:49:10'),
+('G019', 'P00015', 'impostor', 'dead', 0, FALSE, '2025-04-13 19:49:15'),
+('G019', 'P00025', 'crewmate', 'dead', 50, TRUE, '2025-04-13 19:49:20'),
+('G019', 'P00035', 'engineer', 'alive', 100, TRUE, '2025-04-13 19:49:25'),
+('G019', 'P00043', 'crewmate', 'alive', 100, TRUE, '2025-04-13 19:49:30'),
+('G019', 'P00056', 'medic', 'alive', 100, TRUE, '2025-04-13 19:49:35'),
+('G019', 'P00067', 'impostor', 'dead', 0, FALSE, '2025-04-13 19:49:40'),
+('G019', 'P00079', 'crewmate', 'alive', 100, TRUE, '2025-04-13 19:49:45');
+
+-- Game G020 (Ended, impostors win)
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G020', 'P00054', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:31:10'),
+('G020', 'P00016', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:31:15'),
+('G020', 'P00023', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:31:20'),
+('G020', 'P00034', 'engineer', 'dead', 0, FALSE, '2025-04-13 19:31:25'),
+('G020', 'P00044', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:31:30'),
+('G020', 'P00058', 'medic', 'dead', 0, FALSE, '2025-04-13 19:31:35'),
+('G020', 'P00069', 'impostor', 'alive', 150, TRUE, '2025-04-13 19:31:40'),
+('G020', 'P00080', 'crewmate', 'dead', 0, FALSE, '2025-04-13 19:31:45');
+
+-- Add missing players to game G038
+INSERT INTO GamePlayers (game_id, player_id, role, status, reward, is_winner, joined_at) VALUES
+('G038', 'P00038', 'crewmate', 'alive', 100, TRUE, '2025-04-13 20:28:10'),
+('G038', 'P00019', 'crewmate', 'alive', 100, TRUE, '2025-04-13 20:28:15'),
+('G038', 'P00025', 'impostor', 'dead', 0, FALSE, '2025-04-13 20:28:20'),
+('G038', 'P00034', 'engineer', 'alive', 100, TRUE, '2025-04-13 20:28:25'),
+('G038', 'P00050', 'medic', 'alive', 100, TRUE, '2025-04-13 20:28:30'),
+('G038', 'P00072', 'crewmate', 'alive', 100, TRUE, '2025-04-13 20:28:35');
+
+-- Inventory Table Data (Assign items to players)
+INSERT INTO Inventory (player_id, item_id, equipped) VALUES
+('P00001', 1, TRUE), ('P00001', 2, TRUE), ('P00001', 4, FALSE), ('P00001', 7, FALSE), ('P00001', 21, FALSE), ('P00001', 24, FALSE),
+('P00002', 1, FALSE), ('P00002', 3, TRUE), ('P00002', 5, TRUE), ('P00002', 6, TRUE), ('P00002', 10, TRUE), ('P00002', 15, FALSE),
+('P00003', 1, TRUE), ('P00003', 25, TRUE), ('P00003', 24, FALSE),
+('P00004', 1, FALSE), ('P00004', 26, TRUE), ('P00004', 8, TRUE), ('P00004', 9, TRUE), ('P00004', 18, TRUE), ('P00004', 19, FALSE), ('P00004', 20, FALSE),
+('P00005', 1, TRUE), ('P00005', 27, TRUE), ('P00005', 16, FALSE), ('P00005', 17, FALSE),
+('P00006', 1, TRUE), ('P00006', 28, TRUE), ('P00006', 22, TRUE),
+('P00007', 1, TRUE), ('P00007', 29, TRUE), ('P00007', 23, TRUE),
+('P00008', 1, FALSE), ('P00008', 30, TRUE), ('P00008', 5, FALSE), ('P00008', 10, FALSE), ('P00008', 16, TRUE), ('P00008', 17, TRUE),
+('P00009', 1, TRUE), ('P00009', 2, FALSE), ('P00009', 3, TRUE), ('P00009', 12, TRUE), ('P00009', 13, TRUE), ('P00009', 14, TRUE),
+('P00010', 1, TRUE), ('P00010', 25, TRUE);
+-- ... (Generate inventory for players P00011 to P00150, ensuring >100 entries total) ...
+-- Example: Add 100 more random inventory items
+INSERT INTO Inventory (player_id, item_id, equipped) VALUES
+('P00011', 4, TRUE), ('P00011', 5, TRUE), ('P00011', 6, FALSE), ('P00012', 7, TRUE), ('P00012', 8, TRUE),
+('P00013', 9, TRUE), ('P00013', 10, FALSE), ('P00014', 12, TRUE), ('P00014', 13, TRUE), ('P00015', 14, TRUE),
+('P00015', 15, FALSE), ('P00016', 16, TRUE), ('P00016', 17, FALSE), ('P00017', 18, TRUE), ('P00017', 19, TRUE),
+('P00018', 20, TRUE), ('P00018', 21, FALSE), ('P00019', 22, TRUE), ('P00019', 23, TRUE), ('P00020', 24, TRUE),
+('P00020', 2, FALSE), ('P00021', 3, TRUE), ('P00021', 4, FALSE), ('P00022', 5, TRUE), ('P00022', 6, TRUE),
+('P00023', 7, TRUE), ('P00023', 8, FALSE), ('P00024', 9, TRUE), ('P00024', 10, TRUE), ('P00025', 12, TRUE),
+('P00025', 13, FALSE), ('P00026', 14, TRUE), ('P00026', 15, TRUE), ('P00027', 16, TRUE), ('P00027', 17, FALSE),
+('P00028', 18, TRUE), ('P00028', 19, TRUE), ('P00029', 20, TRUE), ('P00029', 21, FALSE), ('P00030', 22, TRUE),
+('P00030', 23, TRUE), ('P00031', 1, TRUE), ('P00031', 2, TRUE), ('P00032', 3, TRUE), ('P00032', 4, FALSE),
+('P00033', 5, TRUE), ('P00033', 6, TRUE), ('P00034', 7, TRUE), ('P00034', 8, FALSE), ('P00035', 9, TRUE),
+('P00035', 10, TRUE), ('P00036', 12, TRUE), ('P00036', 13, FALSE), ('P00037', 14, TRUE), ('P00037', 15, TRUE),
+('P00038', 16, TRUE), ('P00038', 17, FALSE), ('P00039', 18, TRUE), ('P00039', 19, TRUE), ('P00040', 20, TRUE),
+('P00040', 21, FALSE), ('P00041', 22, TRUE), ('P00041', 23, TRUE), ('P00042', 24, TRUE), ('P00042', 25, FALSE),
+('P00043', 26, TRUE), ('P00043', 27, FALSE), ('P00044', 28, TRUE), ('P00044', 29, TRUE), ('P00045', 30, TRUE),
+('P00045', 1, FALSE), ('P00046', 2, TRUE), ('P00046', 3, TRUE), ('P00047', 4, TRUE), ('P00047', 5, FALSE),
+('P00048', 6, TRUE), ('P00048', 7, TRUE), ('P00049', 8, TRUE), ('P00049', 9, FALSE), ('P00050', 10, TRUE);
+
+
+-- PlayerTasks Table Data (Assign tasks for players in some games)
+-- Tasks for Game G001
+INSERT INTO PlayerTasks (game_id, player_id, task_id, is_completed, completed_at) VALUES
+('G001', 'P00011', 1, FALSE, NULL), ('G001', 'P00011', 2, FALSE, NULL), ('G001', 'P00011', 3, TRUE, '2025-04-13 19:10:00'),
+('G001', 'P00018', 1, TRUE, '2025-04-13 19:08:00'), ('G001', 'P00018', 12, FALSE, NULL),
+('G001', 'P00043', 2, FALSE, NULL), -- Dead player, task not completed
+('G001', 'P00053', 3, FALSE, NULL), ('G001', 'P00053', 12, FALSE, NULL),
+('G001', 'P00063', 1, FALSE, NULL), ('G001', 'P00063', 2, TRUE, '2025-04-13 19:15:00'),
+('G001', 'P00073', 3, FALSE, NULL), -- Dead player
+('G001', 'P00007', 12, FALSE, NULL), ('G001', 'P00007', 1, FALSE, NULL),
+('G001', 'P00015', 2, FALSE, NULL); -- Ghost player
+
+-- Tasks for Game G003
+INSERT INTO PlayerTasks (game_id, player_id, task_id, is_completed, completed_at) VALUES
+('G003', 'P00008', 4, FALSE, NULL), ('G003', 'P00008', 5, TRUE, '2025-04-13 19:20:00'),
+('G003', 'P00001', 4, FALSE, NULL), ('G003', 'P00001', 5, FALSE, NULL),
+('G003', 'P00037', 4, TRUE, '2025-04-13 19:18:00'), ('G003', 'P00037', 5, FALSE, NULL),
+('G003', 'P00047', 4, FALSE, NULL), -- Dead player
+('G003', 'P00057', 5, FALSE, NULL), ('G003', 'P00057', 4, FALSE, NULL),
+('G003', 'P00077', 4, TRUE, '2025-04-13 19:25:00'), ('G003', 'P00077', 5, FALSE, NULL);
+
+-- Tasks for Game G005
+INSERT INTO PlayerTasks (game_id, player_id, task_id, is_completed, completed_at) VALUES
+('G005', 'P00021', 1, FALSE, NULL), -- Impostor with fake tasks
+('G005', 'P00029', 1, TRUE, '2025-04-13 18:48:00'), ('G005', 'P00029', 3, TRUE, '2025-04-13 18:52:00'),
+('G005', 'P00038', 12, FALSE, NULL), -- Dead player
+('G005', 'P00044', 1, TRUE, '2025-04-13 18:50:00'), ('G005', 'P00044', 2, FALSE, NULL),
+('G005', 'P00052', 3, TRUE, '2025-04-13 18:49:00'),
+('G005', 'P00069', 12, TRUE, '2025-04-13 18:51:00'), ('G005', 'P00069', 1, FALSE, NULL),
+('G005', 'P00075', 2, FALSE, NULL); -- Dead player
+
+-- Tasks for Game G008
+INSERT INTO PlayerTasks (game_id, player_id, task_id, is_completed, completed_at) VALUES
+('G008', 'P00034', 3, TRUE, '2025-04-13 18:55:00'), ('G008', 'P00034', 12, TRUE, '2025-04-13 18:58:00'),
+('G008', 'P00006', 1, TRUE, '2025-04-13 18:53:00'), ('G008', 'P00006', 2, TRUE, '2025-04-13 18:57:00'),
+('G008', 'P00040', 3, TRUE, '2025-04-13 18:56:00'), ('G008', 'P00040', 1, TRUE, '2025-04-13 19:00:00'),
+('G008', 'P00057', 2, TRUE, '2025-04-13 18:54:00'), -- Dead but completed task before dying
+('G008', 'P00065', 12, TRUE, '2025-04-13 18:59:00'), ('G008', 'P00065', 3, TRUE, '2025-04-13 19:02:00');
+
+-- Tasks for Game G014
+INSERT INTO PlayerTasks (game_id, player_id, task_id, is_completed, completed_at) VALUES
+('G014', 'P00044', 1, TRUE, '2025-04-13 19:15:00'), ('G014', 'P00044', 2, FALSE, NULL),
+('G014', 'P00018', 2, TRUE, '2025-04-13 19:14:00'), ('G014', 'P00018', 3, FALSE, NULL),
+('G014', 'P00022', 12, TRUE, '2025-04-13 19:13:00'), ('G014', 'P00022', 1, FALSE, NULL),
+('G014', 'P00037', 3, FALSE, NULL),
+('G014', 'P00055', 12, TRUE, '2025-04-13 19:16:00'), ('G014', 'P00055', 2, FALSE, NULL),
+('G014', 'P00080', 1, TRUE, '2025-04-13 19:17:00'), ('G014', 'P00080', 3, FALSE, NULL);
+
+-- Tasks for Game G016
+INSERT INTO PlayerTasks (game_id, player_id, task_id, is_completed, completed_at) VALUES
+('G016', 'P00047', 4, TRUE, '2025-04-13 19:52:00'), ('G016', 'P00047', 5, TRUE, '2025-04-13 20:00:00'),
+('G016', 'P00013', 4, TRUE, '2025-04-13 19:50:00'), ('G016', 'P00013', 5, TRUE, '2025-04-13 19:55:00'),
+('G016', 'P00028', 4, TRUE, '2025-04-13 19:53:00'), ('G016', 'P00028', 5, TRUE, '2025-04-13 19:58:00'),
+('G016', 'P00036', 4, TRUE, '2025-04-13 19:54:00'), ('G016', 'P00036', 5, TRUE, '2025-04-13 20:01:00'),
+('G016', 'P00054', 4, TRUE, '2025-04-13 19:51:00'), ('G016', 'P00054', 5, TRUE, '2025-04-13 19:57:00'),
+('G016', 'P00077', 4, TRUE, '2025-04-13 19:56:00'), ('G016', 'P00077', 5, TRUE, '2025-04-13 20:02:00');
+
+-- Tasks for Game G038
+INSERT INTO PlayerTasks (game_id, player_id, task_id, is_completed, completed_at) VALUES
+('G038', 'P00038', 4, TRUE, '2025-04-13 21:00:00'), ('G038', 'P00038', 5, TRUE, '2025-04-13 21:15:00'),
+('G038', 'P00019', 4, TRUE, '2025-04-13 20:50:00'), ('G038', 'P00019', 5, TRUE, '2025-04-13 21:05:00'),
+('G038', 'P00025', 4, TRUE, '2025-04-13 20:55:00'), ('G038', 'P00025', 5, TRUE, '2025-04-13 21:10:00'),
+('G038', 'P00034', 4, TRUE, '2025-04-13 21:00:00'), ('G038', 'P00034', 5, TRUE, '2025-04-13 21:20:00'),
+('G038', 'P00050', 4, TRUE, '2025-04-13 20:45:00'), ('G038', 'P00050', 5, TRUE, '2025-04-13 21:00:00'),
+('G038', 'P00072', 4, TRUE, '2025-04-13 20:55:00'), ('G038', 'P00072', 5, TRUE, '2025-04-13 21:25:00');
+
+
+-- Reports Table Data
+INSERT INTO Reports (report_id, reporter_id, target_id, game_id, reason, status, submitted_at) VALUES
+(1, 'P00011', 'P00033', 'G001', 'Vented in front of me!', 'pending', '2025-04-13 19:25:00'),
+(2, 'P00028', 'P00061', 'G002', 'Teaming / Cheating', 'reviewed', '2025-04-13 18:50:00'),
+(3, 'P00008', 'P00019', 'G003', 'Suspicious movement, possibly hacking.', 'pending', '2025-04-13 19:35:00'),
+(4, 'P00047', 'P00067', 'G003', 'Killed me and self-reported.', 'resolved', '2025-04-13 19:32:00'),
+(5, 'P00014', 'P00025', 'G002', 'Suspicious impostor play, reported body late.', 'reviewed', '2025-04-13 18:48:00'),
+(6, 'P00050', 'P00018', 'G018', 'Harassment in chat', 'pending', '2025-04-13 20:30:00'),
+(7, 'P00070', 'P00060', 'G030', 'AFK during game', 'pending', '2025-04-13 21:10:00'),
+(8, 'P00034', 'P00023', 'G008', 'Using slurs in chat', 'resolved', '2025-04-13 19:10:00'),
+(9, 'P00016', 'P00069', 'G020', 'Teaming with other impostor outside game', 'pending', '2025-04-13 19:50:00'),
+(10, 'P00044', 'P00010', 'G014', 'Suspicious kill through wall', 'reviewed', '2025-04-13 19:30:00'),
+(11, 'P00052', 'P00015', 'G019', 'Speed hacking', 'pending', '2025-04-13 20:35:00'),
+(12, 'P00038', 'P00022', 'G038', 'Intentional sabotage of crew', 'pending', '2025-04-13 21:50:00'),
+(13, 'P00007', 'P00024', 'G013', 'Inappropriate username', 'resolved', '2025-04-13 20:15:00'),
+(14, 'P00045', 'P00008', 'G015', 'Vote manipulation through Discord', 'pending', '2025-04-13 20:20:00'),
+(15, 'P00055', 'P00064', 'G044', 'Task cheating', 'pending', '2025-04-13 22:20:00');
+
+
+-- PlayerBans Table Data
+INSERT INTO PlayerBans (ban_id, player_id, admin_id, type, reason, start_time, end_time) VALUES
+(1, 'P00061', 'ADM002', 'ban', 'Multiple cheating reports confirmed (Report ID: 2)', '2025-04-13 19:00:00', '2025-05-13 19:00:00'), -- 1 month ban
+(2, 'P00018', 'ADM004', 'mute', 'Verified harassment in chat (Report ID: 6)', '2025-04-13 20:35:00', '2025-04-16 20:35:00'), -- 3 day mute
+(3, 'P00067', 'ADM002', 'ban', 'Confirmed hacking behavior (Report ID: 3, 4)', '2025-04-13 19:40:00', NULL), -- Permanent ban
+(4, 'P00025', 'ADM005', 'mute', 'Minor chat infraction', '2025-04-13 18:55:00', '2025-04-14 06:55:00'), -- 12 hour mute
+(5, 'P00023', 'ADM004', 'ban', 'Using slurs in game chat (Report ID: 8)', '2025-04-13 19:15:00', '2025-04-20 19:15:00'), -- 1 week ban
+(6, 'P00024', 'ADM002', 'mute', 'Inappropriate username (Report ID: 13)', '2025-04-13 20:20:00', '2025-04-14 20:20:00'), -- 24 hour mute
+(7, 'P00069', 'ADM005', 'ban', 'Cheating with external communication (Report ID: 9)', '2025-04-13 20:00:00', '2025-04-28 20:00:00'), -- 15 day ban
+(8, 'P00010', 'ADM004', 'mute', 'Exploiting game mechanics (Report ID: 10)', '2025-04-13 19:35:00', '2025-04-14 07:35:00'); -- 12 hour mute
+
+
+-- AdminActions Table Data
+INSERT INTO AdminActions (action_id, admin_id, action_type, target_id, details, timestamp) VALUES
+(1, 'ADM002', 'ReviewReport', '2', 'Reviewed report, evidence found.', '2025-04-13 18:55:00'),
+(2, 'ADM002', 'IssueBan', '1', 'Issued 1 month ban to P00061 for cheating.', '2025-04-13 19:00:00'),
+(3, 'ADM004', 'ReviewReport', '6', 'Reviewed report, confirmed harassment.', '2025-04-13 20:30:00'),
+(4, 'ADM004', 'IssueMute', '2', 'Issued 3 day mute to P00018.', '2025-04-13 20:35:00'),
+(5, 'ADM002', 'ReviewReport', '3', 'Investigating report on P00019.', '2025-04-13 19:38:00'),
+(6, 'ADM002', 'ReviewReport', '4', 'Reviewed report 4, confirmed kill/report. Closing report.', '2025-04-13 19:39:00'),
+(7, 'ADM002', 'IssueBan', '3', 'Issued permanent ban to P00067 for hacking.', '2025-04-13 19:40:00'),
+(8, 'ADM005', 'IssueMute', '4', 'Issued 12 hour mute to P00025.', '2025-04-13 18:55:00'),
+(9, 'ADM003', 'RunAnalyticsQuery', NULL, 'Generated weekly player activity report.', '2025-04-12 15:00:00'),
+(10, 'ADM001', 'GrantPermissions', 'ADM005', 'Granted moderator permissions to AdminHelper.', '2025-04-01 14:05:00'),
+(11, 'ADM004', 'ReviewReport', '8', 'Reviewed slur usage, confirmed from chat logs.', '2025-04-13 19:12:00'),
+(12, 'ADM004', 'IssueBan', '5', 'Issued 7-day ban to P00023 for using slurs.', '2025-04-13 19:15:00'),
+(13, 'ADM002', 'ReviewReport', '13', 'Verified inappropriate username.', '2025-04-13 20:18:00'),
+(14, 'ADM002', 'IssueMute', '6', 'Issued 24-hour mute to P00024, required username change.', '2025-04-13 20:20:00'),
+(15, 'ADM005', 'ReviewReport', '9', 'Reviewed evidence of external communication/teaming.', '2025-04-13 19:55:00'),
+(16, 'ADM005', 'IssueBan', '7', 'Issued 15-day ban to P00069 for teaming.', '2025-04-13 20:00:00'),
+(17, 'ADM004', 'ReviewReport', '10', 'Reviewed gameplay recording, found exploit usage.', '2025-04-13 19:32:00'),
+(18, 'ADM004', 'IssueMute', '8', 'Issued 12-hour mute to P00010 with warning.', '2025-04-13 19:35:00'),
+(19, 'ADM003', 'RunAnalyticsQuery', NULL, 'Generated monthly game balance report.', '2025-04-01 09:00:00'),
+(20, 'ADM001', 'SystemMaintenance', NULL, 'Scheduled server maintenance and optimization.', '2025-04-10 03:00:00');

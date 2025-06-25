@@ -1,0 +1,180 @@
+-- Create the database schema for "Catch Me If You Can" game
+
+-- MapCategories Table
+CREATE TABLE MapCategories (
+    category_id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    parent_id INT,
+    FOREIGN KEY (parent_id) REFERENCES MapCategories(category_id)
+);
+
+-- Maps Table
+CREATE TABLE Maps (
+    map_id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    category_id INT NOT NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (category_id) REFERENCES MapCategories(category_id)
+);
+
+-- Tasks Table
+CREATE TABLE Tasks (
+    task_id INT PRIMARY KEY,
+    map_id INT NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(255),
+    FOREIGN KEY (map_id) REFERENCES Maps(map_id)
+);
+
+-- Items Table
+CREATE TABLE Items (
+    item_id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    type VARCHAR(20) NOT NULL CHECK (type IN ('hat', 'skin', 'pet')),
+    unlock_level INT,
+    is_active BOOLEAN DEFAULT TRUE
+);
+
+-- Admins Table
+CREATE TABLE Admins (
+    admin_id VARCHAR(10) PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL CHECK (role IN ('superadmin', 'moderator', 'analyst')),
+    created_at TIMESTAMP NOT NULL
+);
+
+-- Players Table
+CREATE TABLE Players (
+    player_id VARCHAR(50) PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    gender VARCHAR(10),
+    dob DATE,
+    region VARCHAR(50),
+    wins INT DEFAULT 0,
+    losses INT DEFAULT 0,
+    xp INT DEFAULT 0,
+    level INT DEFAULT 1,
+    created_at TIMESTAMP NOT NULL
+);
+
+-- Inventory Table (Many-to-Many between Players and Items)
+CREATE TABLE Inventory (
+    player_id VARCHAR(50),
+    item_id INT,
+    equipped BOOLEAN DEFAULT FALSE,
+    PRIMARY KEY (player_id, item_id),
+    FOREIGN KEY (player_id) REFERENCES Players(player_id),
+    FOREIGN KEY (item_id) REFERENCES Items(item_id)
+);
+
+-- Clans Table
+CREATE TABLE Clans (
+    clan_id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE,
+    leader_id VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    FOREIGN KEY (leader_id) REFERENCES Players(player_id)
+);
+
+-- ClanMembers Table (Many-to-Many relationship between Clans and Players)
+CREATE TABLE ClanMembers (
+    clan_id INT,
+    player_id VARCHAR(50),
+    role VARCHAR(20) NOT NULL CHECK (role IN ('leader', 'member')),
+    joined_at TIMESTAMP NOT NULL,
+    PRIMARY KEY (clan_id, player_id),
+    FOREIGN KEY (clan_id) REFERENCES Clans(clan_id),
+    FOREIGN KEY (player_id) REFERENCES Players(player_id)
+);
+
+-- Lobbies Table
+CREATE TABLE Lobbies (
+    lobby_id VARCHAR(10) PRIMARY KEY,
+    host_id VARCHAR(50) NOT NULL,
+    max_players INT NOT NULL,
+    status VARCHAR(20) NOT NULL CHECK (status IN ('waiting', 'playing', 'ended')),
+    clan_id INT,
+    created_at TIMESTAMP NOT NULL,
+    FOREIGN KEY (host_id) REFERENCES Players(player_id),
+    FOREIGN KEY (clan_id) REFERENCES Clans(clan_id)
+);
+
+-- Games Table
+CREATE TABLE Games (
+    game_id VARCHAR(10) PRIMARY KEY,
+    lobby_id VARCHAR(10) NOT NULL,
+    map_id INT NOT NULL,
+    created_by VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    ended_at TIMESTAMP,
+    FOREIGN KEY (lobby_id) REFERENCES Lobbies(lobby_id),
+    FOREIGN KEY (map_id) REFERENCES Maps(map_id),
+    FOREIGN KEY (created_by) REFERENCES Players(player_id)
+);
+
+-- GamePlayers Table
+CREATE TABLE GamePlayers (
+    game_id VARCHAR(10),
+    player_id VARCHAR(50),
+    role VARCHAR(20) NOT NULL CHECK (role IN ('impostor', 'crewmate', 'medic', 'engineer')),
+    status VARCHAR(20) NOT NULL CHECK (status IN ('alive', 'dead', 'ghost')),
+    reward INT DEFAULT 0,
+    is_winner BOOLEAN DEFAULT FALSE,
+    joined_at TIMESTAMP NOT NULL,
+    PRIMARY KEY (game_id, player_id),
+    FOREIGN KEY (game_id) REFERENCES Games(game_id),
+    FOREIGN KEY (player_id) REFERENCES Players(player_id)
+);
+
+-- PlayerTasks Table
+CREATE TABLE PlayerTasks (
+    game_id VARCHAR(10),
+    player_id VARCHAR(50),
+    task_id INT,
+    is_completed BOOLEAN DEFAULT FALSE,
+    completed_at TIMESTAMP,
+    PRIMARY KEY (game_id, player_id, task_id),
+    FOREIGN KEY (game_id, player_id) REFERENCES GamePlayers(game_id, player_id),
+    FOREIGN KEY (task_id) REFERENCES Tasks(task_id)
+);
+
+-- Reports Table (Player-reported issues)
+CREATE TABLE Reports (
+    report_id INT PRIMARY KEY,
+    reporter_id VARCHAR(50) NOT NULL,
+    target_id VARCHAR(50) NOT NULL,
+    game_id VARCHAR(10) NOT NULL,
+    reason TEXT NOT NULL,
+    status VARCHAR(20) NOT NULL CHECK (status IN ('pending', 'reviewed', 'resolved')),
+    submitted_at TIMESTAMP NOT NULL,
+    FOREIGN KEY (reporter_id) REFERENCES Players(player_id),
+    FOREIGN KEY (target_id) REFERENCES Players(player_id),
+    FOREIGN KEY (game_id) REFERENCES Games(game_id)
+);
+
+-- PlayerBans Table
+CREATE TABLE PlayerBans (
+    ban_id INT PRIMARY KEY,
+    player_id VARCHAR(50) NOT NULL,
+    admin_id VARCHAR(10) NOT NULL,
+    type VARCHAR(20) NOT NULL CHECK (type IN ('ban', 'mute')),
+    reason TEXT NOT NULL,
+    start_time TIMESTAMP NOT NULL,
+    end_time TIMESTAMP, -- NULL for permanent bans
+    FOREIGN KEY (player_id) REFERENCES Players(player_id),
+    FOREIGN KEY (admin_id) REFERENCES Admins(admin_id)
+);
+
+-- AdminActions Table (Logging admin activities)
+CREATE TABLE AdminActions (
+    action_id INT PRIMARY KEY,
+    admin_id VARCHAR(10) NOT NULL,
+    action_type VARCHAR(50) NOT NULL,
+    target_id VARCHAR(50),  -- Can be NULL for system-wide actions
+    details TEXT,
+    timestamp TIMESTAMP NOT NULL,
+    FOREIGN KEY (admin_id) REFERENCES Admins(admin_id)
+);
+
+

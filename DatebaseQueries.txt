@@ -1,0 +1,514 @@
+-- 1. Get a specific player's profile details by username (no joins, so no change needed)
+SELECT 
+    player_id, 
+    username, 
+    gender, 
+    dob, 
+    region, 
+    wins, 
+    losses, 
+    xp, 
+    level, 
+    created_at
+FROM 
+    Players
+WHERE 
+    username = 'PixelProwler'; -- Example username
+
+-- 2. Get a specific player's profile details by player_id (no joins, so no change needed)
+SELECT 
+    player_id, 
+    username, 
+    gender, 
+    dob, 
+    region, 
+    wins, 
+    losses, 
+    xp, 
+    level, 
+    created_at
+FROM 
+    Players
+WHERE 
+    player_id = 'P00004'; -- Example player_id
+
+-- 3. List all items in a specific player's inventory, including item details
+SELECT 
+    p.username,
+    i.item_id,
+    i.name AS item_name,
+    i.type AS item_type,
+    inv.equipped
+FROM 
+    Inventory inv
+NATURAL JOIN 
+    Players p
+JOIN 
+    Items i ON inv.item_id = i.item_id
+WHERE 
+    player_id = 'P00002'; -- Example player_id
+
+-- 4. Find all players above a certain level in a specific region (no joins, so no change needed)
+SELECT 
+    player_id, 
+    username, 
+    level,
+    region
+FROM 
+    Players
+WHERE 
+    level > 20 
+    AND region = 'North America'
+ORDER BY 
+    level DESC;
+
+-- 5. Most Difficult Task in a Specified Map (Based on failure rate)
+SELECT 
+    t.name AS task_name, 
+    COUNT(pt.task_id) AS total_assigned,
+    SUM(CASE WHEN pt.is_completed = FALSE THEN 1 ELSE 0 END) AS failed_count,
+    ROUND(
+        CAST(SUM(CASE WHEN pt.is_completed = FALSE THEN 1 ELSE 0 END) AS DECIMAL) / 
+        COUNT(pt.task_id) * 100,
+    2) AS failure_rate_percent
+FROM 
+    PlayerTasks pt
+NATURAL JOIN 
+    Tasks t
+WHERE 
+    t.map_id = 101 -- The Skeld map
+GROUP BY 
+    t.task_id, t.name
+ORDER BY 
+    failure_rate_percent DESC, failed_count DESC -- Sort by highest failure rate first
+LIMIT 1;
+
+-- 6. List all players currently in a specific active game
+SELECT 
+    player_id,
+    username,
+    role,
+    status
+FROM 
+    GamePlayers
+NATURAL JOIN 
+    Players
+WHERE 
+    game_id = 'G001' -- Example active game_id
+ORDER BY
+    username;
+    
+    
+-- 7. Get details of a specific clan and its members
+SELECT 
+    c.name AS clan_name,
+    p_leader.username AS leader_username,
+    p_member.username AS member_username,
+    cm.role AS member_role,
+    cm.joined_at
+FROM 
+    Clans c
+JOIN 
+    Players p_leader ON c.leader_id = p_leader.player_id
+JOIN 
+    ClanMembers cm ON c.clan_id = cm.clan_id
+JOIN 
+    Players p_member ON cm.player_id = p_member.player_id
+WHERE 
+    c.clan_id = 3 -- Example clan_id
+ORDER BY 
+    cm.role, p_member.username;
+
+-- 8. Find which clan a specific player belongs to
+SELECT 
+    clan_id,
+    name AS clan_name,
+    p.username AS player_name,
+    role,
+    joined_at
+FROM 
+    ClanMembers
+NATURAL JOIN 
+    Clans
+JOIN
+    Players p ON ClanMembers.player_id = p.player_id
+WHERE 
+    ClanMembers.player_id = 'P00011'; -- Example player_id
+
+-- 9. Find all available items of a specific type (e.g., 'pet')
+SELECT 
+    item_id,
+    name,
+    unlock_level
+FROM 
+    Items
+WHERE 
+    type = 'pet' 
+    AND is_active = TRUE
+ORDER BY 
+    unlock_level;
+
+-- 10. Calculate the win rate for a specific player (no joins, so no change needed)
+SELECT 
+    player_id,
+    username,
+    wins,
+    losses,
+    CASE 
+        WHEN (wins + losses) = 0 THEN 0.0 -- Avoid division by zero
+        ELSE ROUND((CAST(wins AS DECIMAL) / (wins + losses)) * 100.0, 2)
+    END AS win_rate_percent
+FROM 
+    Players
+WHERE 
+    player_id = 'P00004'; -- Example player_id
+
+-- 11. Find all games played on a specific map
+SELECT 
+    g.game_id,
+    g.lobby_id,
+    p.username AS created_by_username,
+    g.created_at,
+	m.map_id
+FROM 
+    Games g
+JOIN 
+    Maps m ON g.map_id = m.map_id
+JOIN
+    Players p ON g.created_by = p.player_id
+WHERE 
+    m.name = 'The Skeld' -- Example map name
+ORDER BY 
+    g.created_at DESC;
+
+-- 12. List the 10 most recent player reports
+SELECT 
+    r.report_id,
+    rptr.username AS reporter_username,
+    trgt.username AS target_username,
+    r.game_id,
+    r.reason,
+    r.status,
+    r.submitted_at
+FROM 
+    Reports r
+JOIN 
+    Players rptr ON r.reporter_id = rptr.player_id
+JOIN 
+    Players trgt ON r.target_id = trgt.player_id
+ORDER BY 
+    r.submitted_at DESC
+LIMIT 10;
+
+-- 13. Count the number of members in each clan
+SELECT 
+    clan_id,
+    name,
+    COUNT(player_id) AS member_count
+FROM 
+    Clans
+NATURAL LEFT JOIN 
+    ClanMembers
+GROUP BY 
+    clan_id, name
+ORDER BY 
+    member_count DESC;
+
+-- 14. Get tasks for a specific map (no joins, so no change needed)
+SELECT
+    task_id,
+    name,
+    description
+FROM
+    Tasks
+WHERE
+    map_id = 101; -- Example map_id (The Skeld)
+
+-- 15. Check active bans/mutes for a specific player (no joins, so no change needed)
+SELECT
+    ban_id,
+    type,
+    reason,
+    start_time,
+    end_time
+FROM 
+    PlayerBans
+WHERE 
+    player_id = 'P00061' -- Example player_id
+    AND (end_time IS NULL OR end_time > CURRENT_TIMESTAMP);
+
+-- 16. Find the most popular maps (by number of games played)
+SELECT
+    name AS map_name,
+    COUNT(game_id) AS games_count
+FROM
+    Maps
+NATURAL LEFT JOIN
+    Games
+WHERE
+    is_active = TRUE
+GROUP BY
+    map_id, name
+ORDER BY
+    games_count DESC;
+
+-- 17. Find players with highest win rates (minimum 10 games played)
+SELECT
+    player_id,
+    username,
+    wins,
+    losses,
+    (wins + losses) AS total_games,
+    ROUND((CAST(wins AS DECIMAL) / (wins + losses)) * 100, 2) AS win_rate_percent
+FROM
+    Players
+WHERE
+    (wins + losses) >= 10
+ORDER BY
+    win_rate_percent DESC
+LIMIT 10;
+
+-- 18. Find all tasks completed by a player in a specific game
+SELECT
+    name AS task_name,
+    is_completed,
+    completed_at,
+	player_id
+FROM
+    PlayerTasks
+NATURAL JOIN
+    Tasks
+WHERE
+    game_id = 'G016' -- Example game_id
+    AND player_id = 'P00047'; -- Example player_id
+
+-- 19. List players who have been reported more than once
+SELECT
+    player_id,
+    username,
+    COUNT(report_id) AS report_count
+FROM
+    Players p
+JOIN
+    Reports r ON p.player_id = r.target_id  -- Can't use NATURAL JOIN here due to different column names
+GROUP BY
+    player_id, username
+HAVING
+    COUNT(report_id) > 1
+ORDER BY
+    report_count DESC;
+
+-- 20. Find all clans with lobbies currently active
+SELECT DISTINCT
+    clan_id,
+    name AS clan_name,
+    leader_id,
+    lobby_id,
+    status
+FROM
+    Clans
+NATURAL JOIN
+    Lobbies
+WHERE
+    status IN ('waiting', 'playing')
+ORDER BY
+    name;
+
+-- 21. Top 5 Players Who Won the Most Games as Impostor in March 2025
+SELECT p.username, COUNT(*) AS impostor_wins
+FROM GamePlayers gp
+NATURAL JOIN Players p
+JOIN Games g ON gp.game_id = g.game_id
+WHERE gp.role = 'impostor'
+  AND gp.is_winner = TRUE
+  AND EXTRACT(MONTH FROM g.created_at) = 3 AND EXTRACT(YEAR FROM g.created_at) = 2025
+GROUP BY p.player_id, p.username
+ORDER BY impostor_wins DESC
+LIMIT 5;
+
+
+-- 22. Top 5 Most Active Clans by Total Games Played by Members
+SELECT c.name AS clan_name, COUNT(DISTINCT gp.game_id) AS total_games
+FROM ClanMembers cm
+JOIN GamePlayers gp ON cm.player_id = gp.player_id
+NATURAL JOIN Clans c
+GROUP BY c.clan_id, c.name
+ORDER BY total_games DESC
+LIMIT 5;
+
+
+-- 23. Most Reported Reason Across All Reports
+SELECT reason, COUNT(*) AS times_reported
+FROM Reports
+GROUP BY reason
+ORDER BY times_reported DESC
+
+
+-- 24. Top 3 Maps Where Impostors Have the Highest Win Rate
+SELECT m.name AS map_name,
+       ROUND(
+           CAST(SUM(CASE WHEN gp.is_winner = TRUE AND gp.role = 'impostor' THEN 1 ELSE 0 END) AS DECIMAL) / 
+           NULLIF(SUM(CASE WHEN gp.role = 'impostor' THEN 1 ELSE 0 END), 0)
+       , 2) AS impostor_win_rate
+FROM Games g
+NATURAL JOIN Maps m
+JOIN GamePlayers gp ON g.game_id = gp.game_id
+GROUP BY m.map_id, m.name
+HAVING SUM(CASE WHEN gp.role = 'impostor' THEN 1 ELSE 0 END) >= 5 -- Ensure enough data points
+ORDER BY impostor_win_rate DESC
+LIMIT 3;
+
+
+-- 25. Players with the Best Crewmate Completion Rate (tasks completed vs assigned)
+SELECT p.username,
+       COUNT(pt.task_id) AS total_tasks_assigned,
+       SUM(CASE WHEN pt.is_completed = TRUE THEN 1 ELSE 0 END) AS tasks_completed,
+       ROUND(
+           CAST(SUM(CASE WHEN pt.is_completed = TRUE THEN 1 ELSE 0 END) AS DECIMAL) / 
+           NULLIF(COUNT(pt.task_id), 0) * 100
+       , 2) AS completion_rate
+FROM Players p
+JOIN GamePlayers gp ON p.player_id = gp.player_id
+JOIN PlayerTasks pt ON gp.game_id = pt.game_id AND gp.player_id = pt.player_id
+WHERE gp.role = 'crewmate' OR gp.role = 'engineer' OR gp.role = 'medic'
+GROUP BY p.player_id, p.username
+ORDER BY completion_rate DESC
+LIMIT 10;
+
+
+-- 26. Maps Sorted by Average Game Duration
+SELECT m.name AS map_name,
+       ROUND(AVG(EXTRACT(EPOCH FROM (g.ended_at - g.created_at))/60), 2) AS avg_duration_minutes
+FROM Maps m
+NATURAL JOIN Games g
+WHERE g.ended_at IS NOT NULL
+GROUP BY m.map_id, m.name
+ORDER BY avg_duration_minutes DESC;
+
+
+-- 27. Player Pairs Who Have Played Together Most Often
+SELECT p1.username AS player1, p2.username AS player2, COUNT(*) AS games_together
+FROM GamePlayers gp1
+JOIN GamePlayers gp2 ON gp1.game_id = gp2.game_id AND gp1.player_id < gp2.player_id
+JOIN Players p1 ON gp1.player_id = p1.player_id
+JOIN Players p2 ON gp2.player_id = p2.player_id
+GROUP BY p1.player_id, p2.player_id, p1.username, p2.username
+ORDER BY games_together DESC
+LIMIT 10;
+
+
+-- 28. Find the "Avenging Players" - Players who reported the most players who were later banned
+SELECT p.username AS reporter_name, 
+       COUNT(DISTINCT r.target_id) AS reported_players_banned
+FROM Reports r
+JOIN Players p ON r.reporter_id = p.player_id
+JOIN PlayerBans pb ON r.target_id = pb.player_id
+WHERE r.submitted_at < pb.start_time -- Report came before the ban
+GROUP BY p.player_id, p.username
+ORDER BY reported_players_banned DESC
+LIMIT 5;
+
+
+-- 29. Find the most social players (those who've played with the most unique other players)
+SELECT p.username, COUNT(DISTINCT other_gp.player_id) AS unique_teammates
+FROM Players p
+JOIN GamePlayers gp ON p.player_id = gp.player_id
+JOIN GamePlayers other_gp ON gp.game_id = other_gp.game_id AND gp.player_id != other_gp.player_id
+GROUP BY p.player_id, p.username
+ORDER BY unique_teammates DESC
+LIMIT 10;
+
+-- 30. Regions Ranked by Average Hours Played per Player
+SELECT 
+    p.region,
+    COUNT(DISTINCT p.player_id) AS number_of_players,
+    COUNT(DISTINCT gp.game_id) AS total_games_played,
+    ROUND(SUM(
+        CASE 
+            WHEN g.ended_at IS NOT NULL THEN 
+                EXTRACT(EPOCH FROM (g.ended_at - g.created_at))/3600.0
+            ELSE 
+                0 
+        END
+    ), 2) AS total_minutes_played,
+    ROUND(
+        SUM(
+            CASE 
+                WHEN g.ended_at IS NOT NULL THEN 
+                    EXTRACT(EPOCH FROM (g.ended_at - g.created_at))/60.0
+                ELSE 
+                    0 
+            END
+        ) / COUNT(DISTINCT p.player_id),
+    2) AS avg_minutes_per_player
+FROM 
+    Players p
+JOIN 
+    GamePlayers gp ON p.player_id = gp.player_id
+JOIN 
+    Games g ON gp.game_id = g.game_id
+WHERE 
+    g.ended_at IS NOT NULL -- Only consider completed games
+GROUP BY 
+    p.region
+ORDER BY 
+    avg_minutes_per_player DESC;
+
+
+-- 31. Playing Time Analysis by Age Groups
+WITH PlayerAgeGroups AS (
+    SELECT 
+        p.player_id,
+        CASE 
+            WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, p.dob)) < 18 THEN 'Under 18'
+            WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, p.dob)) BETWEEN 18 AND 24 THEN '18-24'
+            WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, p.dob)) BETWEEN 25 AND 34 THEN '25-34'
+            WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, p.dob)) BETWEEN 35 AND 44 THEN '35-44'
+            ELSE '45 and above'
+        END AS age_group,
+        CASE 
+            WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, p.dob)) < 18 THEN 1
+            WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, p.dob)) BETWEEN 18 AND 24 THEN 2
+            WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, p.dob)) BETWEEN 25 AND 34 THEN 3
+            WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, p.dob)) BETWEEN 35 AND 44 THEN 4
+            ELSE 5
+        END AS age_group_order
+    FROM 
+        Players p
+    WHERE 
+        p.dob IS NOT NULL
+)
+SELECT 
+    pag.age_group,
+    COUNT(DISTINCT pag.player_id) AS number_of_players,
+    COUNT(DISTINCT gp.game_id) AS total_games_played,
+    ROUND(SUM(
+        CASE 
+            WHEN g.ended_at IS NOT NULL THEN 
+                EXTRACT(EPOCH FROM (g.ended_at - g.created_at))/3600.0
+            ELSE 
+                0 
+        END
+    ), 2) AS total_hours_played,
+    ROUND(
+        SUM(
+            CASE 
+                WHEN g.ended_at IS NOT NULL THEN 
+                    EXTRACT(EPOCH FROM (g.ended_at - g.created_at))/3600.0
+                ELSE 
+                    0 
+            END
+        ) / COUNT(DISTINCT pag.player_id),
+    2) AS avg_hours_per_player
+FROM 
+    PlayerAgeGroups pag
+JOIN 
+    GamePlayers gp ON pag.player_id = gp.player_id
+JOIN 
+    Games g ON gp.game_id = g.game_id
+WHERE 
+    g.ended_at IS NOT NULL -- Only consider completed games
+GROUP BY 
+    pag.age_group, pag.age_group_order
+ORDER BY 
+    pag.age_group_order;
