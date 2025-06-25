@@ -157,8 +157,9 @@ The database design allows for easy expansion to include:
 - Tournament and competitive play systems
 - Enhanced social features (friends, messaging)
 - Advanced analytics and machine learning integration
-- Mobile platform support
 - Real-time communication features
+- Mobile platform support
+
 
 ---
 
